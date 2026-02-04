@@ -1,10 +1,5 @@
 return {
   'vyfor/cord.nvim',
-  build = ':Cord update',
-
-  -- build = './build || .\\build',
-  event = 'VeryLazy',
-  opts = {}, -- calls require('cord').setup()
   config = function()
     require('cord').setup {
       editor = {
