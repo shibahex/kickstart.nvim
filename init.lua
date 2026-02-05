@@ -481,6 +481,8 @@ require('lazy').setup({
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
       { 'mason-org/mason.nvim', opts = {} },
+      { 'mason-org/mason-lspconfig.nvim', opts = {} },
+
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
@@ -869,13 +871,14 @@ require('lazy').setup({
     end,
   },
 
-  { -- Highlight, edit, and navigate code
+  {
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ':TSUpdate',
     config = function()
-      local filetypes = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
-      require('nvim-treesitter').install(filetypes)
+      -- Enable treesitter highlighting for specific filetypes
       vim.api.nvim_create_autocmd('FileType', {
-        pattern = filetypes,
+        pattern = { 'sh', 'c', 'diff', 'html', 'lua', 'markdown', 'vim' },
         callback = function() vim.treesitter.start() end,
       })
     end,
